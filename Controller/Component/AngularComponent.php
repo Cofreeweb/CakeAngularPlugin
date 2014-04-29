@@ -8,12 +8,9 @@
 
 class AngularComponent extends Component 
 {
-
-
   public $components = array();
-
-
-
+  
+  
   public function beforeRender( Controller $Controller) 
   {
     if( isset( $Controller->request->params ['ext']) && $Controller->request->params ['ext'] == 'json' && !empty( $Controller->request->data))

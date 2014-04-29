@@ -1,19 +1,22 @@
 <?php
+
+App::uses('EntryAppController', 'Entry.Controller');
+
 /**
- * GetsController
+ * TemplateController
  * 
- * Se encarga de tomar los templates, que estarán alojados en las carpetas de Elements
+ * Se encarga de tomar los templates, que estarán situados en las vistas
  *
  * @package Angular.Controller
- * @version $Id$
- * @copyright __MyCompanyName__
  **/
 
-class TemplateController extends AppController 
+class TemplateController extends AngularAppController 
 {
   public $name = 'Template';
   
   public $uses = array();
+  
+  public $helpers = array( 'Entry.Entry');
   
   public function beforeFilter()
   {
@@ -47,6 +50,20 @@ class TemplateController extends AppController
       unset( $paths [0]);
       $path = '../'. $controller .'/' . implode( '/', $paths);
       
+      if( strpos( $path, ':') !== false)
+      {
+        $vars_query = substr( $path, strpos( $path, ':') + 1);
+        
+        $vars = explode( ';', $vars_query);
+        
+        foreach( $vars as $var)
+        {
+          list( $key, $value) = explode( '=', $var);
+          $this->set( $key, $value);
+        }
+        
+        $path = substr( $path, 0, strpos( $path, ':'));
+      }
       $this->set( compact( 'path', 'plugin'));
     }
     else
