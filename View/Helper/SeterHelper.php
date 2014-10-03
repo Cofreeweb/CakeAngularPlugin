@@ -50,6 +50,28 @@ class SeterHelper extends AppHelper
     ));
   }
 	
+  public function setNgVars( $app)
+  {
+    if( isset( $this->_View->viewVars ['ngVars'][$app]))
+    {
+      // Variable donde se guardarán las lineas de código
+      $sets = array();
+
+      foreach( $this->_View->viewVars ['ngVars'][$app] as $name => $value)
+      {
+        // Comprueba que la variable esté seteada en la vista
+        $sets [] = '$rootScope.'. $name .' = '. json_encode( $value) .';';
+      }
+
+      $script = 'angular.module( "'. $app .'").run( function( $rootScope){
+        '. implode( ' ', $sets) .'
+      });';
+
+      return $this->Html->scriptBlock( $script);
+    }
+    
+  }
+
   public function val( $value, $key)
   {
     if( isset( $value))
