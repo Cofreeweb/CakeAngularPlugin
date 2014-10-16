@@ -16,7 +16,7 @@ class TemplateController extends AngularAppController
   
   public $uses = array();
   
-  public $helpers = array( 'Entry.Entry');
+  // public $helpers = array( 'Entry.Entry');
   
   public function beforeFilter()
   {
