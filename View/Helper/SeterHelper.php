@@ -17,7 +17,7 @@ class SeterHelper extends AppHelper
  *
  * @return void
  */
-  public function beforeLayout()
+  public function beforeLayout($layoutFile)
   {
     // Comprueba que no estén vacios estas dos variables
     if( empty( $this->settings ['vars']) || empty( $this->settings ['module']))
